@@ -1,6 +1,15 @@
 <script>
+import { mapActions } from 'pinia'
+import { useAppStore } from '../stores/app'
+
 export default {
-    props : ['patient', 'i']
+    props : ['patient', 'i'], 
+    methods : {
+        ...mapActions(useAppStore, ['patientById']),
+        seePatientDetail(id){
+            this.patientById(id)
+        }
+    }
 }
 </script>
 
@@ -14,9 +23,11 @@ export default {
                 <td>{{patient.address}}</td>
                 <td>{{patient.nik}}</td>
                 <td>
-                  <a href="" class=""><i class="bi bi-pencil-square"></i></a>
+                  <a href="/edit-patient" class=""><i class="bi bi-pencil-square"></i></a>
                   <a href="" class="ms-3"><i class="bx bx-trash"></i></a>
-                  <a href="" class="ms-3"><i class="bx bxs-user"></i></a>
+                  <a 
+                    @click.prevent="seePatientDetail(patient.id)"
+                    href="#"  class="ms-3"><i class="bx bxs-user"></i></a>
                 </td>
                 
 
